@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="menu.twig.dir">W3build\MenuBundle\Twig</parameter>
+        <parameter key="menu.menu_loader.class">W3build\MenuBundle\MenuLoader</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="twig.menu" class="%menu.twig.dir%\MenuExtension">
+            <argument type="service" id="admin.menu_loader" />
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="admin.menu_loader" class="%menu.menu_loader.class%">
+            <argument type="service" id="cache" />
+            <argument>%kernel.root_dir%</argument>
+            <argument>%kernel.environment%</argument>
+        </service>
+
+        <service id="cache" class="Doctrine\Common\Cache\ApcCache">
+            <call method="setNamespace">
+                <argument>%host%</argument>
+            </call>
+        </service>
+
+    </services>
+
+</container>

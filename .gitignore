@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea
 
-/vendor/
+/vendor/*
 
 !/vendor/.gitkeep
 
